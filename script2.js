@@ -225,7 +225,7 @@ function verPartidas() {
             }
 
             // Crear la tabla
-            let table = '<table><tr><th>Nombre de Usuario</th><th>Número de Discos</th><th>Tiempo (s)</th><th>Fecha</th></tr>';
+            let table = '<table><tr class="center"><th>Usuario</th><th>Número de Discos</th><th>Tiempo </th><th>Fecha</th></tr>';
 
             // Agregar cada partida a la tabla
             data.forEach(partida => {

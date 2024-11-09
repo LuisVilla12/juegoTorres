@@ -21,6 +21,9 @@ body {
 .bg-white{
     background-color: #FFF;
 }
+.center{
+    text-align: center;
+}
 .container{
     width: 50%;
     margin-right:auto ;

@@ -11,25 +11,33 @@
         <div class="flex">
             <div>
                 <!-- <input class="input_end" type="number" id="diskCount" min="0" placeholder="Número de discos"> -->
-                <div>
-                    <label for="nivel">Selecciona Nivel:</label>
-                    <select id="nivel" onchange="seleccionarNivel()">
-                        <option value="2">Nivel 1 (2 discos)</option>
-                        <option value="3">Nivel 2 (3 discos)</option>
-                        <option value="4">Nivel 3 (4 discos)</option>
+                <div class="flex justify-center">
+                    <label for="nivel">Seleccionar el nivel a jugar:</label>
+                    <select id="nivel" class="select" onchange="seleccionarNivel()">
+                        <option value="2">Nivel 1</option>
+                        <option value="3">Nivel 2</option>
+                        <option value="4">Nivel 3</option>
+                        <option value="5">Nivel 4</option>
+                        <option value="6">Nivel 5</option>
+                        <option value="7">Nivel 6</option>
+                        <option value="8">Nivel 7</option>
                         <!-- Puedes agregar más niveles según lo desees -->
                     </select>
+                    <div class="flex-p">
+                        <p>Movimientos: <span id="moveCount">0</span></p>
+                        <p>Tiempo: <span id="timer">0</span> s</p>
+                    </div>
                 </div>
                 
-                <button onclick="empezarJuego()" class="btn">Empezar</button>
-                <!-- <button id="modeButton" onclick="toggleMode()" class="btn">Modo Manual</button> -->
-                <button id="verRegistros" class="btn" onclick="verPartidas()">Ver Registros</button>
+                <div class="botones">
+                    <button onclick="empezarJuego()" class="btn btn-empezar">Empezar</button>
+                    <button id="verRegistros" class="btn btn-observar" onclick="verPartidas()">Ver Registros</button>
+                    <!-- <button id="modeButton" onclick="toggleMode()" class="btn">Modo Manual</button> -->
+
+                </div>
 
             </div>
-            <div class="flex-p">
-                <p>Movimientos: <span id="moveCount">0</span></p>
-                <p>Tiempo: <span id="timer">0</span> s</p>
-            </div>
+
         </div>
     </div>
     <div id="towers">

@@ -28,7 +28,7 @@ body {
 }
 .flex{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
 }
@@ -57,3 +57,50 @@ table{
     display: flex;
     place-items: center;
 }
+.btn{
+    padding: 11px 21px;               /* Espacio interno */
+    font-size: 16px;                  /* Tamaño de la fuente */
+    font-weight: bold;                /* Negrita */
+    color: #fff;                      /* Color del texto */
+    background-color: #007bff;        /* Color de fondo */
+    border: none;                     /* Sin borde */
+    border-radius: 8px;               /* Bordes redondeados */
+    cursor: pointer;                  /* Cambia el cursor a pointer */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+select {
+    width: 200px;         /* Ancho del select */
+    padding: 12px;         /* Espacio interno */
+    border: 2px solid #333; /* Borde del select */
+    border-radius: 5px;   /* Bordes redondeados */
+    background-color: #f0f0f0; /* Color de fondo */
+    color: #333;          /* Color del texto */
+    font-size: 16px;      /* Tamaño de la fuente */
+    outline: none;        /* Sin borde de selección */
+    cursor: pointer;      /* Cambia el cursor a pointer */
+}
+
+select:focus {
+    border-color: #007bff; /* Cambia el color del borde al estar enfocado */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra para enfoque */
+}
+
+select {
+    -webkit-appearance: none; /* Elimina la apariencia predeterminada en Safari y Chrome */
+    -moz-appearance: none;    /* Elimina la apariencia predeterminada en Firefox */
+    appearance: none;
+    background-image: url('ruta-de-tu-flecha.svg'); /* Imagen personalizada para la flecha */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Ubicación de la flecha */
+    padding-right: 30px; /* Espacio para la flecha */
+}
+
+.botones{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    margin: 1rem;
+}
+.btn-observar{
+    background-color: red;

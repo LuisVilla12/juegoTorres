@@ -104,13 +104,16 @@ function animateMoves(moveSequence) {
 }
 
 // Función para alternar entre modo automático y manual
-function toggleMode() {
-    isAutomatic = !isAutomatic;
-    document.getElementById("modeButton").textContent = isAutomatic ? "Modo Manual" : "Modo Automático";
+
+const boton = document.getElementById("modeButton");
+boton.addEventListener("click", () => {
+    isAutomatic=!isAutomatic
+    document.getElementById("modeButton").textContent = isAutomatic ?  "Modo Automático":"Modo Manual";
     document.querySelectorAll('.disk').forEach(disk => {
         disk.draggable = !isAutomatic;
     });
-}
+    console.log(isAutomatic);
+});
 
 // Funciones de arrastre y soltado
 function dragStart(event) {
@@ -183,7 +186,7 @@ function checkWinCondition() {
         return;
     }
 
-    if (tower3.childElementCount === diskCount) {
+    if (tower3.childElementCount === diskCount || tower2.childElementCount === diskCount ) {
         stopTimer(); // Detener el temporizador cuando el juego está completo
         Swal.fire({
             title: "¡Felicidades!",
@@ -197,6 +200,7 @@ function checkWinCondition() {
             data.append('username', userName);
             data.append('diskCount', diskCount); // Enviamos diskCount como debe ser
             data.append('time', timeSpent);
+            data.append('moves', moves);
 
             fetch('guardar_partida.php', {
                 method: 'POST',
@@ -215,6 +219,16 @@ function checkWinCondition() {
 
 
 // VER partidas
+// Función para exportar la tabla a un archivo de Excel
+function exportarExcel() {
+    const table = document.createElement("table"); // Crear una tabla temporal
+    table.innerHTML = document.getElementById("tablaRegistros").innerHTML; // Copiar el contenido
+
+    const workbook = XLSX.utils.table_to_book(table); // Convertir la tabla a libro de Excel
+    XLSX.writeFile(workbook, `registros_partidas_${new Date().toISOString().split('T')[0]}.xlsx`); // Guardar archivo con la fecha
+}
+
+// Modificar la función verPartidas para incluir el botón de exportación
 function verPartidas() {
     fetch('consultar_registros.php')
         .then(response => response.json())
@@ -224,32 +238,48 @@ function verPartidas() {
                 return;
             }
 
-            // Crear la tabla
-            let table = '<table><tr class="center"><th>Usuario</th><th>Número de Discos</th><th>Tiempo </th><th>Fecha</th></tr>';
+            // Crear la tabla de registros con estilo centrado
+            let table = `
+                <div style="display: flex; justify-content: center; margin-top: 20px;">
+                    <table id="tablaRegistros" style="border-collapse: collapse; width: 90%; text-align: center;">
+                        <tr class="center" style="background-color: #f2f2f2;">
+                            <th style="padding: 8px; border: 1px solid #ddd;">Usuario</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Número de Discos</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Movimientos</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Tiempo</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Fecha de registro</th>
+                        </tr>`;
 
             // Agregar cada partida a la tabla
             data.forEach(partida => {
                 table += `<tr>
-                    <td>${partida.username}</td>
-                    <td>${partida.diskCount}</td>
-                    <td>${partida.time}</td>
-                    <td>${partida.dateRegister}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${partida.username}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${partida.diskCount}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${partida.moves}</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${partida.time}s</td>
+                    <td style="padding: 8px; border: 1px solid #ddd;">${partida.dateRegister}</td>
                 </tr>`;
             });
 
-            table += '</table>';
+            table += '</table></div>';
 
-            // Mostrar la tabla en SweetAlert
+            // Mostrar la tabla en SweetAlert con botón de exportar
             Swal.fire({
                 title: 'Registros de Partidas',
                 html: table,
                 showCloseButton: true,
                 focusConfirm: false,
                 confirmButtonText: 'Cerrar',
+                showDenyButton: true,
+                denyButtonText: 'Exportar a Excel',
                 customClass: {
-                    popup: 'custom-popup' // Clase personalizada para el popup
+                    popup: 'custom-popup'
                 },
-                width: '50%', // Ajustar el ancho
+                width: '50%',
+            }).then((result) => {
+                if (result.isDenied) {
+                    exportarExcel(); // Llamar a la función exportar si se hace clic en el botón
+                }
             });
         })
         .catch(error => {

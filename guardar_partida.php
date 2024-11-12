@@ -14,10 +14,11 @@ try {
         $username = $_POST['username'];
         $diskCount = $_POST['diskCount'];
         $time = $_POST['time'];
+        $moves=$_POST['moves'];
         $dateRegister = date("Y-m-d H:i:s"); // Fecha y hora actual
 
         // Insertar el registro en la base de datos
-        $sql = "INSERT INTO plays (username, diskCount, time, dateRegister) VALUES (:username, :diskCount, :time, :dateRegister)";
+        $sql = "INSERT INTO plays (username, diskCount, time, dateRegister, moves) VALUES (:username, :diskCount, :time, :dateRegister,:moves)";
         $stmt = $conn->prepare($sql);
 
         // Ejecutar la consulta con parámetros seguros
@@ -25,7 +26,8 @@ try {
             ':username' => $username,
             ':diskCount' => $diskCount,
             ':time' => $time,
-            ':dateRegister' => $dateRegister
+            ':dateRegister' => $dateRegister,
+            'moves'=>$moves
         ]);
 
         echo "Registro guardado exitosamente";

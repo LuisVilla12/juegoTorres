@@ -21,6 +21,7 @@ body {
 .bg-white{
     background-color: #FFF;
 }
+
 .center{
     text-align: center;
 }
@@ -65,12 +66,14 @@ table{
     font-size: 16px;                  /* Tamaño de la fuente */
     font-weight: bold;                /* Negrita */
     color: #fff;                      /* Color del texto */
-    background-color: #007bff;        /* Color de fondo */
     border: none;                     /* Sin borde */
     border-radius: 8px;               /* Bordes redondeados */
     cursor: pointer;                  /* Cambia el cursor a pointer */
     transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+.btn-manual{
+    background-color: green;
 }
 select {
     width: 200px;         /* Ancho del select */
@@ -106,4 +109,5 @@ select {
     margin: 1rem;
 }
 .btn-observar{
-    background-color: red;
+    background-color: red
+}
